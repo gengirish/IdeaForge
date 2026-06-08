@@ -12,6 +12,7 @@ LangGraph StateGraph
 
 analyze_retention: delta view, contradiction alerts, kill criteria (Phase 2)
 LLM scoring: ai-fallback-chain (NVIDIA NIM → Gemini, circuit breaker)
+Parallel scoring: `LLM_SCORE_CONCURRENCY` (default 8) — asyncio batch with aggregated errors
 Tracing: LangSmith when LANGCHAIN_TRACING_V2=true
 Email: AgentMail send_digest_email node (see ../docs/AGENTMAIL.md)
 ```

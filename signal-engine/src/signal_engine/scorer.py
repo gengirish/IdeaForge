@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+import asyncio
 import json
 import logging
+from dataclasses import dataclass, field
 
 from signal_engine.config import Settings, get_settings
 from signal_engine.llm.providers import call_llm_json
@@ -102,3 +104,58 @@ async def score_signal(
         llm_provider=result.provider,
         llm_model=result.model,
     )
+
+
+@dataclass
+class ScoreBatchResult:
+    scored: list[ScoredSignal] = field(default_factory=list)
+    errors: list[str] = field(default_factory=list)
+
+    @property
+    def interview_worthy_count(self) -> int:
+        return sum(1 for s in self.scored if s.scorecard.interview_worthy)
+
+
+async def score_signals_batch(
+    signals: list[RawSignal],
+    thesis: ThesisConfig,
+    *,
+    settings: Settings | None = None,
+    concurrency: int | None = None,
+) -> ScoreBatchResult:
+    """Score signals in parallel with a concurrency limit; aggregate successes and failures."""
+    if not signals:
+        return ScoreBatchResult()
+
+    settings = settings or get_settings()
+    limit = max(1, concurrency if concurrency is not None else settings.llm_score_concurrency)
+    sem = asyncio.Semaphore(limit)
+
+    async def score_one(signal: RawSignal) -> tuple[ScoredSignal | None, str | None]:
+        async with sem:
+            try:
+                result = await score_signal(signal, thesis, settings=settings)
+                return result, None
+            except Exception as exc:
+                msg = f"score:{signal.source_id}:{exc}"
+                logger.error("Score failed for %s: %s", signal.source_id, exc)
+                return None, msg
+
+    results = await asyncio.gather(*(score_one(signal) for signal in signals))
+    scored: list[ScoredSignal] = []
+    errors: list[str] = []
+    for item, err in results:
+        if item is not None:
+            scored.append(item)
+        if err is not None:
+            errors.append(err)
+
+    logger.info(
+        "Scored %d/%d signals (%d interview-worthy, %d failed, concurrency=%d)",
+        len(scored),
+        len(signals),
+        sum(1 for s in scored if s.scorecard.interview_worthy),
+        len(errors),
+        limit,
+    )
+    return ScoreBatchResult(scored=scored, errors=errors)

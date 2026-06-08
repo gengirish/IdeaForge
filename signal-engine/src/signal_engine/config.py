@@ -24,6 +24,9 @@ class Settings(BaseSettings):
     gemini_base_url: str = "https://generativelanguage.googleapis.com/v1beta/openai/"
     gemini_model: str = "gemini-2.0-flash"
 
+    # Parallel LLM scoring (asyncio semaphore limit)
+    llm_score_concurrency: int = 8
+
     digest_output_path: str = "../docs/SIGNAL_DIGEST.md"
 
     # LangSmith observability (langchain-architecture)

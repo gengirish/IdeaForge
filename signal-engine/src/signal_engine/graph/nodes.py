@@ -26,7 +26,7 @@ from signal_engine.repository import (
     save_scored_signal,
 )
 from signal_engine.email.digest_mail import send_digest_email
-from signal_engine.scorer import score_signal
+from signal_engine.scorer import score_signals_batch
 
 logger = logging.getLogger(__name__)
 
@@ -75,20 +75,15 @@ async def node_score_batch(state: PipelineState) -> PipelineState:
     thesis = ThesisConfig.model_validate(state["thesis"])
     signals = [RawSignal.model_validate(s) for s in state.get("raw_signals", [])]
     settings = get_settings()
-    scored: list[dict] = []
 
-    for i, signal in enumerate(signals, 1):
-        logger.info("Scoring %d/%d: %s", i, len(signals), signal.title[:60])
-        try:
-            result = await score_signal(signal, thesis, settings=settings)
-            scored.append(result.model_dump(mode="json"))
-        except Exception as exc:
-            logger.error("Score failed for %s: %s", signal.source_id, exc)
-            errors = list(state.get("errors", []))
-            errors.append(f"score:{signal.source_id}:{exc}")
-            return {"errors": errors, "step": "score_partial"}
+    batch = await score_signals_batch(signals, thesis, settings=settings)
+    errors = list(state.get("errors", [])) + batch.errors
 
-    return {"scored_signals": scored, "step": "scored"}
+    return {
+        "scored_signals": [s.model_dump(mode="json") for s in batch.scored],
+        "errors": errors,
+        "step": "scored" if not batch.errors else "score_partial",
+    }
 
 
 async def node_persist(state: PipelineState) -> PipelineState:
