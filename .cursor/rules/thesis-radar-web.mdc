@@ -1,0 +1,13 @@
+---
+description: ThesisRadar web app conventions
+globs: apps/thesis-radar/web/**/*
+alwaysApply: false
+---
+
+# ThesisRadar Web
+
+- Next.js 14 App Router; functional components only
+- Use `tk-shadcn-ui` when adding UI primitives
+- Phase 1 P0 before polish: waitlist, thesis wizard, auth, Stripe, scorecard detail
+- Strict TypeScript — no `any` on exported APIs
+- Read `prod-landing-page` before changing marketing pages

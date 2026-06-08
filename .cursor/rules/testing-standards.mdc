@@ -1,0 +1,11 @@
+---
+description: Test quality guidelines
+alwaysApply: true
+---
+
+# Testing standards
+
+- New features and bug fixes need tests
+- Test names describe scenario + expected outcome
+- Arrange-Act-Assert structure
+- Run `uv run pytest -q` in signal-engine before claiming done

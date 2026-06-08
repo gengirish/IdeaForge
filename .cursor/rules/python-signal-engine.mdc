@@ -1,0 +1,13 @@
+---
+description: Python signal-engine conventions
+globs: signal-engine/**/*.py
+alwaysApply: false
+---
+
+# Signal Engine (Python)
+
+- Type hints on all public functions; Pydantic for structured data
+- Pipeline changes go through LangGraph nodes in `graph/` — not ad-hoc scripts
+- LLM calls use `llm/providers.py` (ai-fallback-chain) — never single-provider
+- New nodes need tests in `tests/` (TDD)
+- Format/lint: ruff, line-length 100

@@ -1,0 +1,11 @@
+---
+description: Universal code quality for IdeaForge
+alwaysApply: true
+---
+
+# Coding standards
+
+- Prefer clarity over cleverness; functions under 40 lines where practical
+- Handle errors explicitly — never empty except blocks
+- No commented-out code in commits
+- Minimize scope: only change what the task requires
