@@ -21,3 +21,6 @@ class PipelineState(TypedDict, total=False):
     email_skip_reason: str
     step: str
     errors: list[str]
+    prefilter_total: int
+    prefilter_selected: int
+    prefilter_skipped: int

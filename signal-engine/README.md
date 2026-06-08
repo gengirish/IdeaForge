@@ -13,6 +13,19 @@ LangGraph StateGraph
 analyze_retention: delta view, contradiction alerts, kill criteria (Phase 2)
 LLM scoring: ai-fallback-chain (NVIDIA NIM → Gemini, circuit breaker)
 Parallel scoring: `LLM_SCORE_CONCURRENCY` (default 8) — asyncio batch with aggregated errors
+Pre-LLM cap: `LLM_SCORE_MAX_SIGNALS` (default 50) or per-thesis `score_max_signals` — keyword rank then top-N
+
+## Thesis configs
+
+| File | Vertical |
+|------|----------|
+| `config/thesis_recruiting_ta.yaml` | Recruiting / TA (Vettd dogfood) |
+| `config/thesis_soc2_compliance.yaml` | SOC 2 / compliance for B2B startups |
+
+```bash
+npm run pipeline:soc2:dry-run   # SOC 2 topic, fetch only
+npm run pipeline:soc2           # SOC 2 topic, full run
+```
 Tracing: LangSmith when LANGCHAIN_TRACING_V2=true
 Email: AgentMail send_digest_email node (see ../docs/AGENTMAIL.md)
 ```

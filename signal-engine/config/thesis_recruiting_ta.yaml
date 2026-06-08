@@ -49,6 +49,8 @@ kill_criteria:
     threshold: 0
     window_days: 14
 
+score_max_signals: 50
+
 sources:
   reddit:
     subreddits:

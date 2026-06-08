@@ -1,0 +1,86 @@
+name: "SOC 2 / Compliance — B2B startup dogfood"
+vertical: soc2_compliance
+
+icp:
+  titles:
+    - "Head of Security"
+    - "VP Engineering"
+    - "Founder / CEO (Series A–B)"
+    - "GRC Manager"
+  company_size: "20–500 employees"
+  industries:
+    - "B2B SaaS"
+    - "Fintech"
+    - "HealthTech"
+  geography: "US / remote-first"
+
+problem_hypothesis: >
+  Early-stage B2B teams burn weeks on SOC 2 prep, security questionnaires, and
+  audit evidence collection. They need continuous compliance without a full-time
+  GRC hire.
+
+keywords:
+  - SOC 2
+  - SOC2
+  - compliance audit
+  - security questionnaire
+  - audit evidence
+  - GRC
+  - ISO 27001
+  - vendor security review
+  - trust center
+  - penetration test
+
+competitors:
+  - name: Vanta
+    g2_url: "https://www.g2.com/products/vanta/reviews"
+  - name: Drata
+    g2_url: "https://www.g2.com/products/drata/reviews"
+  - name: Secureframe
+    g2_url: "https://www.g2.com/products/secureframe/reviews"
+
+disqualifiers:
+  - "consumer app with no enterprise sales"
+  - "student / certification exam question"
+  - "job seeker asking how to get SOC 2 certified personally"
+  - "vendor marketing post (not buyer pain)"
+
+kill_criteria:
+  - description: "3+ signals/week say spreadsheets/manual audits work fine"
+    threshold: 3
+    window_days: 7
+  - description: "Zero interview-worthy signals for 14 days"
+    threshold: 0
+    window_days: 14
+
+# Cap LLM scoring — fetch many, score top matches only
+score_max_signals: 40
+
+sources:
+  reddit:
+    subreddits:
+      - sysadmin
+      - cybersecurity
+      - startups
+      - SaaS
+    keywords:
+      - SOC 2
+      - SOC2
+      - compliance
+      - security questionnaire
+      - audit
+      - GRC
+      - ISO 27001
+    days_back: 14
+    fallback_listing: true
+  hn:
+    query: "SOC2 compliance security audit GRC"
+    days_back: 30
+    tags: story,comment
+
+linkedin_manual_queries:
+  - '"SOC 2" "startup" audit pain'
+  - '"security questionnaire" "enterprise sales" frustrated'
+  - '"compliance" "Series A" GRC'
+  - '"audit evidence" manual spreadsheet'
+  - '"trust center" B2B SaaS'

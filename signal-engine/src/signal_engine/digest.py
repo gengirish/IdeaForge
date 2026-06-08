@@ -18,18 +18,31 @@ def render_digest(
     delta: DeltaSummary | None = None,
     contradiction: ContradictionAlert | None = None,
     kill_criteria: list[KillCriteriaAlert] | None = None,
+    prefilter_total: int | None = None,
+    prefilter_selected: int | None = None,
+    prefilter_skipped: int | None = None,
     generated_at: datetime | None = None,
 ) -> str:
     now = generated_at or datetime.now(UTC)
     interview_worthy = [s for s in scored_signals if s.scorecard.interview_worthy]
     other = [s for s in scored_signals if not s.scorecard.interview_worthy]
 
-    lines = [
-        "# Signal Digest",
-        "",
+    meta_lines = [
         f"> **Thesis:** {thesis.name}  ",
         f"> **Generated:** {now.strftime('%Y-%m-%d %H:%M UTC')}  ",
         f"> **Signals scored:** {len(scored_signals)} | **Interview-worthy:** {len(interview_worthy)}",
+    ]
+    if prefilter_skipped:
+        selected = prefilter_selected if prefilter_selected is not None else len(scored_signals)
+        meta_lines.append(
+            f"> **Prefilter:** {prefilter_total} unique → {selected} selected "
+            f"({prefilter_skipped} skipped pre-LLM)  "
+        )
+
+    lines = [
+        "# Signal Digest",
+        "",
+        *meta_lines,
         "",
         "---",
         "",

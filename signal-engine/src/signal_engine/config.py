@@ -26,6 +26,7 @@ class Settings(BaseSettings):
 
     # Parallel LLM scoring (asyncio semaphore limit)
     llm_score_concurrency: int = 8
+    llm_score_max_signals: int = 50
 
     digest_output_path: str = "../docs/SIGNAL_DIGEST.md"
 

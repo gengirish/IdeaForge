@@ -12,6 +12,7 @@ def test_pipeline_graph_has_expected_nodes() -> None:
         "load_thesis",
         "fetch_sources",
         "dedupe",
+        "prefilter",
         "score_batch",
         "persist",
         "analyze_retention",

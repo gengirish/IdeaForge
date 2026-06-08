@@ -57,6 +57,7 @@ class ThesisConfig(BaseModel):
     kill_criteria: list[dict] = Field(default_factory=list)
     sources: dict = Field(default_factory=dict)
     linkedin_manual_queries: list[str] = Field(default_factory=list)
+    score_max_signals: int | None = None
 
 
 class RawSignal(BaseModel):

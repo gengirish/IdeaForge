@@ -12,11 +12,12 @@ from signal_engine.graph.nodes import (
     node_fetch_sources,
     node_load_thesis,
     node_persist,
+    node_prefilter,
     node_render_digest,
     node_score_batch,
     node_send_digest_email,
     node_write_digest,
-    route_after_dedupe,
+    route_after_prefilter,
 )
 from signal_engine.graph.state import PipelineState
 from signal_engine.tracing import configure_tracing
@@ -29,6 +30,7 @@ def build_pipeline_graph():
     builder.add_node("load_thesis", node_load_thesis)
     builder.add_node("fetch_sources", node_fetch_sources)
     builder.add_node("dedupe", node_dedupe)
+    builder.add_node("prefilter", node_prefilter)
     builder.add_node("score_batch", node_score_batch)
     builder.add_node("persist", node_persist)
     builder.add_node("analyze_retention", node_analyze_retention)
@@ -39,9 +41,10 @@ def build_pipeline_graph():
     builder.add_edge(START, "load_thesis")
     builder.add_edge("load_thesis", "fetch_sources")
     builder.add_edge("fetch_sources", "dedupe")
+    builder.add_edge("dedupe", "prefilter")
     builder.add_conditional_edges(
-        "dedupe",
-        route_after_dedupe,
+        "prefilter",
+        route_after_prefilter,
         {"score_batch": "score_batch", "render_digest": "render_digest"},
     )
     builder.add_edge("score_batch", "persist")

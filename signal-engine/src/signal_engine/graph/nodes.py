@@ -25,7 +25,9 @@ from signal_engine.repository import (
     fetch_scored_last_n_days,
     save_scored_signal,
 )
+from signal_engine.prefilter import select_signals_for_scoring
 from signal_engine.email.digest_mail import send_digest_email
+
 from signal_engine.scorer import score_signals_batch
 
 logger = logging.getLogger(__name__)
@@ -69,6 +71,29 @@ async def node_dedupe(state: PipelineState) -> PipelineState:
             unique.append(item)
     logger.info("Deduped to %d unique signals", len(unique))
     return {"raw_signals": unique, "step": "deduped"}
+
+
+async def node_prefilter(state: PipelineState) -> PipelineState:
+    thesis = ThesisConfig.model_validate(state["thesis"])
+    signals = [RawSignal.model_validate(s) for s in state.get("raw_signals", [])]
+    settings = get_settings()
+    max_signals = thesis.score_max_signals or settings.llm_score_max_signals
+
+    selected, skipped = select_signals_for_scoring(signals, thesis, max_signals)
+    logger.info(
+        "Prefilter: %d/%d selected for LLM scoring (skipped %d, max=%d)",
+        len(selected),
+        len(signals),
+        skipped,
+        max_signals,
+    )
+    return {
+        "raw_signals": [s.model_dump(mode="json") for s in selected],
+        "prefilter_total": len(signals),
+        "prefilter_selected": len(selected),
+        "prefilter_skipped": skipped,
+        "step": "prefiltered",
+    }
 
 
 async def node_score_batch(state: PipelineState) -> PipelineState:
@@ -183,6 +208,9 @@ async def node_render_digest(state: PipelineState) -> PipelineState:
         delta=delta,
         contradiction=contradiction,
         kill_criteria=kill_criteria,
+        prefilter_total=state.get("prefilter_total"),
+        prefilter_selected=state.get("prefilter_selected"),
+        prefilter_skipped=state.get("prefilter_skipped"),
     )
     return {"digest_content": content, "step": "rendered"}
 
@@ -219,7 +247,7 @@ async def node_write_digest(state: PipelineState) -> PipelineState:
     return {"digest_path": str(digest_path), "step": "complete"}
 
 
-def route_after_dedupe(state: PipelineState) -> Literal["render_digest", "score_batch"]:
+def route_after_prefilter(state: PipelineState) -> Literal["render_digest", "score_batch"]:
     if state.get("dry_run") or state.get("skip_scoring"):
         return "render_digest"
     return "score_batch"

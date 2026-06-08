@@ -12,6 +12,8 @@
     "deploy:api": "fly deploy . --config apps/thesis-radar/api/fly.toml --app thesis-radar-api",
     "deploy:web": "vercel deploy --prod",
     "pipeline": "cd signal-engine && uv sync && uv run python -m signal_engine.pipeline",
-    "pipeline:dry-run": "cd signal-engine && uv sync && uv run python -m signal_engine.pipeline --dry-run"
+    "pipeline:dry-run": "cd signal-engine && uv sync && uv run python -m signal_engine.pipeline --dry-run",
+    "pipeline:soc2": "cd signal-engine && uv sync && uv run python -m signal_engine.pipeline --thesis config/thesis_soc2_compliance.yaml",
+    "pipeline:soc2:dry-run": "cd signal-engine && uv sync && uv run python -m signal_engine.pipeline --thesis config/thesis_soc2_compliance.yaml --dry-run"
   }
 }
