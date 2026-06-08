@@ -1,13 +1,11 @@
-# fly.toml app configuration file generated for thesis-radar-api
-#
 # Deploy from repo root:
-#   fly deploy --config apps/thesis-radar/api/fly.toml
+#   fly deploy . --config apps/thesis-radar/api/fly.toml --app thesis-radar-api
 
 app = 'thesis-radar-api'
 primary_region = 'iad'
 
 [build]
-  dockerfile = 'apps/thesis-radar/api/Dockerfile'
+  dockerfile = 'Dockerfile'
 
 [env]
   SIGNAL_ENGINE_ROOT = '/app'

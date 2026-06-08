@@ -1,6 +1,8 @@
 # Deploy web UI:
 #   cd apps/thesis-radar/web
-#   vercel --prod
+#   vercel deploy --prod
+#
+# Production URL: https://thesis-radar-seven.vercel.app
 #
 # Required Vercel env vars (Production):
 #   DATABASE_URL

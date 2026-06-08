@@ -1,5 +1,5 @@
 # Deploy API (from repo root):
-#   fly deploy --config apps/thesis-radar/api/fly.toml
+#   fly deploy . --config apps/thesis-radar/api/fly.toml --app thesis-radar-api
 #
 # Set secrets:
 #   fly secrets set DATABASE_URL=... NVIDIA_NIM_API_KEY=... --app thesis-radar-api
