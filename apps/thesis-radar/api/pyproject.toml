@@ -1,0 +1,25 @@
+[project]
+name = "thesis-radar-api"
+version = "0.1.0"
+description = "FastAPI wrapper over signal_engine for ThesisRadar"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.34.0",
+    "signal-engine",
+]
+
+[tool.uv.sources]
+signal-engine = { path = "../../../signal-engine", editable = true }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/thesis_radar_api"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
