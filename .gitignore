@@ -18,7 +18,7 @@ node_modules/
 out/
 .turbo/
 *.tsbuildinfo
-.vercel/
+.vercel
 
 # Env & secrets
 .env
