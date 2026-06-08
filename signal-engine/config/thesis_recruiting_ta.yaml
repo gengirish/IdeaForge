@@ -1,0 +1,67 @@
+name: "Recruiting / TA — Vettd dogfood"
+vertical: recruiting_ta
+
+icp:
+  titles:
+    - "Head of Talent Acquisition"
+    - "VP People"
+    - "Recruiting Manager"
+    - "TA Lead"
+  company_size: "50–500 employees"
+  industries:
+    - "B2B SaaS"
+    - "Tech"
+  geography: "US / remote-first"
+
+problem_hypothesis: >
+  High-volume hiring teams waste hours on manual phone screens and unstructured
+  interview notes. They need faster, evidence-based screening without adding headcount.
+
+keywords:
+  - phone screen
+  - screening interview
+  - structured interview
+  - hiring manager feedback
+  - ATS integration
+  - recruiter burnout
+  - time to hire
+  - candidate experience
+
+competitors:
+  - name: HireVue
+    g2_url: "https://www.g2.com/products/hirevue/reviews"
+  - name: Spark Hire
+    g2_url: "https://www.g2.com/products/spark-hire/reviews"
+  - name: Modern Hire
+    g2_url: "https://www.g2.com/products/modern-hire/reviews"
+
+disqualifiers:
+  - "solo founder with no hiring plan"
+  - "agency recruiter only (not in-house TA)"
+  - "student / career advice thread"
+  - "job seeker venting (not buyer pain)"
+
+kill_criteria:
+  - description: "3+ signals/week say manual phone screens work fine"
+    threshold: 3
+    window_days: 7
+  - description: "Zero interview-worthy signals for 14 days"
+    threshold: 0
+    window_days: 14
+
+sources:
+  reddit:
+    subreddits:
+      - recruiting
+      - humanresources
+      - recruitinghell
+    query: "phone screen OR structured interview OR ATS OR time to hire"
+  hn:
+    query: "recruiting interview screening hiring"
+
+linkedin_manual_queries:
+  - '"phone screen" "talent acquisition" pain'
+  - '"structured interview" "hiring manager" frustrated'
+  - '"recruiter burnout" "high volume" hiring'
+  - '"ATS" "screening" manual process'
+  - '"time to hire" "phone screen" bottleneck'
