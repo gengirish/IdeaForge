@@ -1,0 +1,7 @@
+{
+  "framework": "nextjs",
+  "installCommand": "npm install --prefix apps/thesis-radar/web",
+  "buildCommand": "npm run build --prefix apps/thesis-radar/web",
+  "outputDirectory": "apps/thesis-radar/web/.next",
+  "regions": ["iad1"]
+}

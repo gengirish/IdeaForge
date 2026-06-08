@@ -6,6 +6,8 @@ alwaysApply: false
 
 # ThesisRadar Web
 
+- Monorepo root is `IdeaForge/` — run `npm run dev` / `npm run build` from repo root
+- Next.js app lives in `apps/thesis-radar/web/`; Vercel config is root `vercel.json`
 - Next.js 14 App Router; functional components only
 - Use `tk-shadcn-ui` when adding UI primitives
 - Phase 1 P0 before polish: waitlist, thesis wizard, auth, Stripe, scorecard detail

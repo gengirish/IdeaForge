@@ -34,12 +34,16 @@ uv run pytest -q
 
 ## Phase 1 (Next.js fullstack)
 
+Run everything from the **repo root** (`IdeaForge/`):
+
 ```bash
 # Python signal-engine service (ingestion + scoring)
 cd apps/thesis-radar/api && uv sync && uv run uvicorn thesis_radar_api.main:app --reload --port 8000
 
 # Next.js fullstack app (UI + API routes + Server Actions)
-cd apps/thesis-radar/web && cp .env.local.example .env.local && npm install && npm run dev
+cp apps/thesis-radar/web/.env.local.example apps/thesis-radar/web/.env.local
+npm install --prefix apps/thesis-radar/web
+npm run dev
 ```
 
 ## Stack

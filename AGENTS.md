@@ -31,10 +31,15 @@ docs/                    # Tracker, digests, plans
 
 ## Commands
 
+All commands assume **repo root** (`IdeaForge/`):
+
 ```bash
 docker compose up -d          # Postgres for local pipeline
 cd signal-engine && uv run pytest -q
-cd apps/thesis-radar/web && npm run build
+npm run build                 # Next.js (apps/thesis-radar/web)
+npm run dev                   # Next.js dev server
+npm run deploy:api            # Fly.io
+npm run deploy:web            # Vercel
 ```
 
 ## What NOT to do

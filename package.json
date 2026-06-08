@@ -1,0 +1,15 @@
+{
+  "name": "ideaforge",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ThesisRadar / Signal Engine monorepo",
+  "scripts": {
+    "dev": "npm run dev --prefix apps/thesis-radar/web",
+    "build": "npm run build --prefix apps/thesis-radar/web",
+    "start": "npm run start --prefix apps/thesis-radar/web",
+    "lint": "npm run lint --prefix apps/thesis-radar/web",
+    "dev:api": "cd apps/thesis-radar/api && uv run uvicorn thesis_radar_api.main:app --reload --port 8000",
+    "deploy:api": "fly deploy . --config apps/thesis-radar/api/fly.toml --app thesis-radar-api",
+    "deploy:web": "vercel deploy --prod"
+  }
+}
