@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 import yaml
@@ -9,13 +10,31 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-from signal_engine.models import RawSignal, ThesisConfig
+from signal_engine.models import RawSignal
 from signal_engine.graph.nodes import load_thesis
 from signal_engine.pipeline import fetch_all
 
-DEFAULT_THESIS = (
-    Path(__file__).resolve().parents[5] / "signal-engine" / "config" / "thesis_recruiting_ta.yaml"
-)
+
+def _default_thesis_path() -> Path:
+    if path := os.getenv("DEFAULT_THESIS_PATH"):
+        return Path(path)
+    if root := os.getenv("SIGNAL_ENGINE_ROOT"):
+        return Path(root) / "signal-engine" / "config" / "thesis_recruiting_ta.yaml"
+    return (
+        Path(__file__).resolve().parents[5] / "signal-engine" / "config" / "thesis_recruiting_ta.yaml"
+    )
+
+
+DEFAULT_THESIS = _default_thesis_path()
+
+
+def _cors_origins() -> list[str]:
+    raw = os.getenv(
+        "CORS_ORIGINS",
+        "http://localhost:3000,https://thesis-radar.vercel.app",
+    )
+    return [origin.strip() for origin in raw.split(",") if origin.strip()]
+
 
 app = FastAPI(
     title="ThesisRadar API",
@@ -25,7 +44,8 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=_cors_origins(),
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

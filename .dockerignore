@@ -1,0 +1,32 @@
+# Git
+.git
+.github
+
+# Python
+**/__pycache__
+**/.pytest_cache
+**/.ruff_cache
+**/.mypy_cache
+**/.venv
+**/.uv
+**/*.egg-info
+
+# Node
+**/node_modules
+**/.next
+**/out
+
+# Env & secrets
+.env
+.env.*
+!.env.example
+!**/.env.local.example
+
+# IDE & docs output
+.cursor
+.idea
+.vscode
+docs/SIGNAL_DIGEST.md
+
+# Build artifacts
+**/*.log
