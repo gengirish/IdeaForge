@@ -55,9 +55,21 @@ sources:
       - recruiting
       - humanresources
       - recruitinghell
-    query: "phone screen OR structured interview OR ATS OR time to hire"
+    # PullPush: one term per request (OR chains return 0 hits)
+    keywords:
+      - phone screen
+      - ATS
+      - recruiter burnout
+      - structured interview
+      - time to hire
+      - screening interview
+    days_back: 14
+    fallback_listing: true
   hn:
-    query: "recruiting interview screening hiring"
+    # Each word is queried separately (Algolia AND/OR chains are unreliable)
+    query: "recruiting hiring screening interview"
+    days_back: 30
+    tags: story,comment
 
 linkedin_manual_queries:
   - '"phone screen" "talent acquisition" pain'

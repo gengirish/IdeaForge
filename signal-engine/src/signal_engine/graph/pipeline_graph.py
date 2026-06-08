@@ -14,6 +14,7 @@ from signal_engine.graph.nodes import (
     node_persist,
     node_render_digest,
     node_score_batch,
+    node_send_digest_email,
     node_write_digest,
     route_after_dedupe,
 )
@@ -33,6 +34,7 @@ def build_pipeline_graph():
     builder.add_node("analyze_retention", node_analyze_retention)
     builder.add_node("render_digest", node_render_digest)
     builder.add_node("write_digest", node_write_digest)
+    builder.add_node("send_digest_email", node_send_digest_email)
 
     builder.add_edge(START, "load_thesis")
     builder.add_edge("load_thesis", "fetch_sources")
@@ -46,7 +48,8 @@ def build_pipeline_graph():
     builder.add_edge("persist", "analyze_retention")
     builder.add_edge("analyze_retention", "render_digest")
     builder.add_edge("render_digest", "write_digest")
-    builder.add_edge("write_digest", END)
+    builder.add_edge("write_digest", "send_digest_email")
+    builder.add_edge("send_digest_email", END)
 
     return builder.compile()
 

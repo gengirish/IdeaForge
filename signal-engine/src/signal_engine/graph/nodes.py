@@ -25,6 +25,7 @@ from signal_engine.repository import (
     fetch_scored_last_n_days,
     save_scored_signal,
 )
+from signal_engine.email.digest_mail import send_digest_email
 from signal_engine.scorer import score_signal
 
 logger = logging.getLogger(__name__)
@@ -189,6 +190,26 @@ async def node_render_digest(state: PipelineState) -> PipelineState:
         kill_criteria=kill_criteria,
     )
     return {"digest_content": content, "step": "rendered"}
+
+
+async def node_send_digest_email(state: PipelineState) -> PipelineState:
+    """Send markdown digest via AgentMail (skips gracefully if unconfigured)."""
+    if state.get("dry_run"):
+        return {"email_sent": False, "email_skip_reason": "dry-run", "step": "email_skipped"}
+
+    content = state.get("digest_content", "")
+    if not content:
+        return {"email_sent": False, "email_skip_reason": "no digest content", "step": "email_skipped"}
+
+    thesis = ThesisConfig.model_validate(state["thesis"])
+    result = await send_digest_email(thesis=thesis, markdown_body=content)
+
+    if result.ok:
+        logger.info("Digest email sent%s", f" (id={result.message_id})" if result.message_id else "")
+        return {"email_sent": True, "email_skip_reason": "", "step": "email_sent"}
+
+    logger.info("Digest email skipped: %s", result.reason)
+    return {"email_sent": False, "email_skip_reason": result.reason, "step": "email_skipped"}
 
 
 async def node_write_digest(state: PipelineState) -> PipelineState:

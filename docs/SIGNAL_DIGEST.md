@@ -1,7 +1,7 @@
 # Signal Digest
 
 > **Thesis:** Recruiting / TA — Vettd dogfood  
-> **Generated:** 2026-06-08 02:51 UTC  
+> **Generated:** 2026-06-08 14:24 UTC  
 > **Signals scored:** 0 | **Interview-worthy:** 0
 
 ---

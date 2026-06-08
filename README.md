@@ -23,10 +23,15 @@ IdeaForge/
 docker compose up -d   # Postgres (matches .env.example DATABASE_URL)
 cp .env.example .env   # fill LLM keys
 
+# From repo root (recommended):
+npm run pipeline:dry-run   # fetch only
+npm run pipeline           # full run → docs/SIGNAL_DIGEST.md
+
+# Or from signal-engine/:
 cd signal-engine
 uv sync --group test
-uv run python -m signal_engine.pipeline --dry-run   # fetch only
-uv run python -m signal_engine.pipeline             # full run → docs/SIGNAL_DIGEST.md
+uv run python -m signal_engine.pipeline --dry-run
+uv run python -m signal_engine.pipeline
 uv run pytest -q
 ```
 
@@ -55,5 +60,5 @@ npm run dev
 | Scoring | LangGraph nodes + NVIDIA NIM → Gemini fallback (circuit breaker) |
 | Storage | Postgres |
 | Auth / billing (Phase 1) | Clerk + Stripe via Next.js |
-| Deploy | Vercel (Next.js) + Fly.io (Python worker) |
+| Deploy | Vercel → [thesis-radar.intelliforge.tech](https://thesis-radar.intelliforge.tech) · Fly → thesis-radar-api.fly.dev |
 | CI | GitHub Actions (daily digest cron) |

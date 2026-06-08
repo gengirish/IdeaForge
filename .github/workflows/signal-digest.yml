@@ -28,6 +28,9 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           NVIDIA_NIM_API_KEY: ${{ secrets.NVIDIA_NIM_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          AGENTMAIL_API_KEY: ${{ secrets.AGENTMAIL_API_KEY }}
+          AGENTMAIL_DIGEST_INBOX_ID: ${{ secrets.AGENTMAIL_DIGEST_INBOX_ID }}
+          DIGEST_EMAIL_TO: ${{ secrets.DIGEST_EMAIL_TO }}
         run: uv run python -m signal_engine.pipeline
 
       - name: Commit digest

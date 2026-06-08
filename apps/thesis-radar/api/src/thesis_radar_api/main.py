@@ -31,7 +31,7 @@ DEFAULT_THESIS = _default_thesis_path()
 def _cors_origins() -> list[str]:
     raw = os.getenv(
         "CORS_ORIGINS",
-        "http://localhost:3000,https://thesis-radar.vercel.app",
+        "http://localhost:3000,https://thesis-radar.intelliforge.tech,https://thesis-radar.vercel.app",
     )
     return [origin.strip() for origin in raw.split(",") if origin.strip()]
 

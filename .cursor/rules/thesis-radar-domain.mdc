@@ -1,0 +1,19 @@
+---
+description: ThesisRadar production domain and deploy targets
+alwaysApply: true
+---
+
+# ThesisRadar domains
+
+| Surface | Primary URL | Platform |
+|---------|-------------|----------|
+| **Web (primary)** | `https://thesis-radar.intelliforge.tech` | Vercel |
+| API | `https://thesis-radar-api.fly.dev` | Fly.io (`thesis-radar-api`) |
+| Brand | Separate from vettd-app.com | IntelliForge |
+
+## Rules
+
+- Use `thesis-radar.intelliforge.tech` in user-facing links, CORS, Clerk allowed origins, and email templates — not `*.vercel.app` as primary.
+- Keep `https://*.vercel.app` only as preview/CORS fallback.
+- `SIGNAL_ENGINE_API_URL` on Vercel production → `https://thesis-radar-api.fly.dev`
+- AgentMail digest inbox lives on `intelliforge.tech` (e.g. `alerts@intelliforge.tech`).

@@ -22,6 +22,7 @@ Before implementing any feature:
 | CI | `setting-up-ci`, `ws-cicd-automation` |
 | Next.js UI | `tk-nextjs`, `tk-shadcn-ui`, `ws-frontend-development` |
 | Landing / copy | `prod-landing-page`, `mkt-copywriting` |
+| Email (AgentMail) | `docs/AGENTMAIL.md` — NOT outdated `open-source-skills/.../agentmail` |
 | Done claims | `verification-before-completion` |
 
 ## Verification before "done"

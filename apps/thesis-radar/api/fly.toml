@@ -17,6 +17,7 @@ primary_region = 'iad'
   GEMINI_MODEL = 'gemini-2.0-flash'
   LANGCHAIN_TRACING_V2 = 'false'
   LANGCHAIN_PROJECT = 'thesis-radar'
+  CORS_ORIGINS = 'http://localhost:3000,https://thesis-radar.intelliforge.tech,https://thesis-radar.vercel.app'
 
 [http_service]
   internal_port = 8080

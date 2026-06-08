@@ -13,6 +13,7 @@ LangGraph StateGraph
 analyze_retention: delta view, contradiction alerts, kill criteria (Phase 2)
 LLM scoring: ai-fallback-chain (NVIDIA NIM → Gemini, circuit breaker)
 Tracing: LangSmith when LANGCHAIN_TRACING_V2=true
+Email: AgentMail send_digest_email node (see ../docs/AGENTMAIL.md)
 ```
 
 ## Setup
@@ -41,11 +42,17 @@ uv run python -m signal_engine.pipeline --thesis config/thesis_recruiting_ta.yam
 
 Output: `../docs/SIGNAL_DIGEST.md`
 
-## Tests
+## Tuning sources
 
-```bash
-uv run pytest
-```
+Edit `config/thesis_recruiting_ta.yaml`:
+
+| Reddit | HN |
+|--------|-----|
+| `keywords:` — one PullPush query per term (no `OR` chains) | `days_back: 30` — default window |
+| `days_back: 14` — local recency filter (relaxed if PullPush index lags) | `days_back: 30` — Algolia time window |
+| `fallback_listing: true` — list + local keyword filter if empty | `query:` — each word queried separately |
+
+Probe hit counts: `uv run python scripts/probe_sources.py`
 
 ## Config
 

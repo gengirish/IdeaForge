@@ -4,9 +4,9 @@
 
 **Goal:** Ship ThesisRadar from Phase 0 dogfood through Phase 1 MVP using the identified Cursor skills — not ad-hoc scaffolding.
 
-**Architecture:** LangGraph orchestrates ingestion → scoring → retention analysis → digest. FastAPI wraps `signal_engine` for the web. Next.js + Clerk + Stripe + Resend for Phase 1.
+**Architecture:** LangGraph orchestrates ingestion → scoring → retention analysis → digest → AgentMail. FastAPI wraps `signal_engine` for the web. Next.js + Clerk + Stripe for Phase 1.
 
-**Tech Stack:** Python 3.12, uv, LangGraph, asyncpg, FastAPI, Next.js 14, shadcn, Clerk, Stripe, Resend, Neon Postgres
+**Tech Stack:** Python 3.12, uv, LangGraph, asyncpg, FastAPI, Next.js 14, shadcn, Clerk, Stripe, AgentMail, Neon Postgres
 
 ---
 
@@ -22,7 +22,7 @@
 | CI tests | ❌ | ❌ | Only digest cron workflow |
 | Thesis wizard | ❌ | ❌ | Phase 1 |
 | Auth + Stripe | ❌ | ❌ | Phase 1 |
-| Resend digest | ❌ | ❌ | Phase 1 |
+| AgentMail digest | ✅ node | Partial | Per-user email in Phase 1 |
 | Waitlist landing | Scaffold | ❌ | Needs `prod-landing-page` |
 
 ---
@@ -47,7 +47,7 @@
 ### Task 1.1: Waitlist landing (`prod-landing-page`, `mkt-copywriting`)
 
 - [ ] Hero: thesis-driven positioning (not idea tourist)
-- [ ] Waitlist form → API route → DB or Resend audience
+- [ ] Waitlist form → API route → DB + AgentMail confirmation
 - [ ] Founding member $49/mo CTA copy
 
 ### Task 1.2: Thesis wizard (`tk-react-hook-form`, `tk-zod`)
@@ -66,10 +66,11 @@
 - [ ] 20-seat cap webhook logic
 - [ ] Customer portal link in settings
 
-### Task 1.5: Resend daily digest
+### Task 1.5: AgentMail daily digest (`docs/AGENTMAIL.md`)
 
-- [ ] Email template mirroring markdown digest sections
-- [ ] Cron or queue trigger post-pipeline
+- [x] LangGraph `send_digest_email` node + Python client
+- [ ] Per-user digest (multi-tenant inbox or shared system inbox)
+- [ ] Webhook for inbound replies (waitlist)
 
 ### Task 1.6: Signal detail + scorecard UI (`tk-shadcn-ui`)
 

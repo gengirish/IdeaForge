@@ -17,5 +17,7 @@ class PipelineState(TypedDict, total=False):
     kill_criteria_alerts: list[dict]
     digest_path: str
     digest_content: str
+    email_sent: bool
+    email_skip_reason: str
     step: str
     errors: list[str]

@@ -10,6 +10,8 @@
     "lint": "npm run lint --prefix apps/thesis-radar/web",
     "dev:api": "cd apps/thesis-radar/api && uv run uvicorn thesis_radar_api.main:app --reload --port 8000",
     "deploy:api": "fly deploy . --config apps/thesis-radar/api/fly.toml --app thesis-radar-api",
-    "deploy:web": "vercel deploy --prod"
+    "deploy:web": "vercel deploy --prod",
+    "pipeline": "cd signal-engine && uv sync && uv run python -m signal_engine.pipeline",
+    "pipeline:dry-run": "cd signal-engine && uv sync && uv run python -m signal_engine.pipeline --dry-run"
   }
 }

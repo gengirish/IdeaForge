@@ -3,6 +3,22 @@ revision = 3
 requires-python = ">=3.12"
 
 [[package]]
+name = "agentmail"
+version = "0.5.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "httpx" },
+    { name = "pydantic" },
+    { name = "pydantic-core" },
+    { name = "typing-extensions" },
+    { name = "websockets" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/93/2d/9d5acac90a7426bebf3c5df30e80cc28250074664f4384edca70ce5c6919/agentmail-0.5.3.tar.gz", hash = "sha256:a29918a0eb8c1387fefd12c1adfcf466ab1273ae081b3af65d24b1f88f2952f4", size = 129786, upload-time = "2026-06-04T01:56:37.848Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/70/5b/5fe417f2fe4b294baaa326cdbffb409b0df8a33061effa071ae4aaf0a4c8/agentmail-0.5.3-py3-none-any.whl", hash = "sha256:de5528cd9959a8116fd2c8f95b504868b451909826cbef39ca39cf951fedbab8", size = 283361, upload-time = "2026-06-04T01:56:36.422Z" },
+]
+
+[[package]]
 name = "annotated-types"
 version = "0.7.0"
 source = { registry = "https://pypi.org/simple" }
@@ -794,6 +810,7 @@ name = "signal-engine"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "agentmail" },
     { name = "asyncpg" },
     { name = "httpx" },
     { name = "langchain-core" },
@@ -821,6 +838,7 @@ test = [
 
 [package.metadata]
 requires-dist = [
+    { name = "agentmail", specifier = ">=0.1" },
     { name = "asyncpg", specifier = ">=0.30.0" },
     { name = "httpx", specifier = ">=0.28.0" },
     { name = "langchain-core", specifier = ">=0.3.0" },

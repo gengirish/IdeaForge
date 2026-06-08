@@ -32,6 +32,11 @@ class Settings(BaseSettings):
     langchain_project: str = "thesis-radar"
     langchain_endpoint: str = ""
 
+    # AgentMail — daily digest (docs/AGENTMAIL.md)
+    agentmail_api_key: str = ""
+    agentmail_digest_inbox_id: str = ""
+    digest_email_to: str = ""
+
 
 def get_settings() -> Settings:
     return Settings()

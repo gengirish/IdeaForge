@@ -145,7 +145,7 @@ uv run python -m signal_engine.pipeline           # full run
 | Feature | Priority |
 |---------|----------|
 | Thesis wizard (ICP, JTBD, competitors, keywords, disqualifiers) | P0 |
-| Daily email digest (Resend / AgentMail) | P0 |
+| Daily email digest (AgentMail) | P0 |
 | Signal detail page with source receipts | P0 |
 | Scorecard view (5 dimensions, not one number) | P0 |
 | Auth + Stripe ($49/mo founding member, 20 seats cap) | P0 |
@@ -170,8 +170,8 @@ uv run python -m signal_engine.pipeline           # full run
 | DB | Postgres (Neon) + Prisma | Accessed from Next.js Server Components / Server Actions |
 | Auth | Clerk | Middleware + Server Actions; keep separate from Vettd org auth |
 | Billing | Stripe | Webhook route in Next.js (`/api/webhooks/stripe`) |
-| Email | Resend | Daily digest from Next.js cron or background job |
-| Deploy | Vercel (Next.js) + Fly.io (Python worker) | Independent from vettd-app.com |
+| Email | AgentMail | Daily digest via `signal-engine` LangGraph node (`docs/AGENTMAIL.md`) |
+| Deploy | Vercel → **thesis-radar.intelliforge.tech** + Fly → thesis-radar-api.fly.dev | Independent from vettd-app.com |
 
 ### Repo strategy (parallel MVP)
 
