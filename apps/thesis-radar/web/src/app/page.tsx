@@ -1,16 +1,6 @@
-import { SignalPreview } from "@/components/signal-preview";
-import { runPipelineDryRun } from "@/lib/signal-engine";
+import Link from "next/link";
 
-export const dynamic = "force-dynamic";
-
-export default async function HomePage() {
-  let dryRun = null;
-  try {
-    dryRun = await runPipelineDryRun();
-  } catch {
-    dryRun = null;
-  }
-
+export default function HomePage() {
   return (
     <main className="mx-auto max-w-4xl px-6 py-16">
       <header className="mb-12">
@@ -40,12 +30,25 @@ export default async function HomePage() {
       </section>
 
       <section className="rounded-xl border border-slate-800 bg-slate-900/30 p-6">
-        <h2 className="mb-2 text-xl font-semibold">Live signal preview</h2>
-        <p className="mb-4 text-sm text-slate-400">
-          Server-rendered via Next.js → Python signal engine (Reddit + HN dry-run). Full scoring
-          runs in <code className="rounded bg-slate-800 px-1">signal-engine</code>.
+        <h2 className="mb-2 text-xl font-semibold">Founding member access</h2>
+        <p className="mb-6 text-sm text-slate-400">
+          Sign in to open your dashboard — live signal preview, thesis wizard, and daily digest
+          (Phase 1).
         </p>
-        <SignalPreview dryRun={dryRun} />
+        <div className="flex flex-wrap gap-3">
+          <Link
+            href="/sign-up"
+            className="rounded-lg bg-brand-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-brand-700"
+          >
+            Get started
+          </Link>
+          <Link
+            href="/sign-in"
+            className="rounded-lg border border-slate-700 px-4 py-2 text-sm text-slate-200 transition hover:border-slate-500"
+          >
+            Sign in
+          </Link>
+        </div>
       </section>
 
       <footer className="mt-12 text-sm text-slate-500">
