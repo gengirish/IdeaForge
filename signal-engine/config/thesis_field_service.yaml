@@ -1,0 +1,60 @@
+name: "Field Service — HVAC/plumbing scheduling dogfood"
+vertical: field_service
+
+icp:
+  titles:
+    - "Operations Manager"
+    - "Service Company Owner"
+    - "Dispatch Lead"
+  company_size: "solo to 50 employees"
+  industries: ["Creator economy", "SMB"]
+  geography: "US / remote-first"
+
+problem_hypothesis: >
+  Small field service businesses lose revenue to no-shows, double-booked techs, and phone-tag dispatch. They need reliable scheduling without enterprise FSM cost.
+
+keywords:
+  - field service
+  - dispatch software
+  - HVAC scheduling
+  - no-show
+  - service technician
+  - route optimization
+  - Jobber
+  - ServiceTitan
+
+competitors:
+  - name: Jobber
+    g2_url: "https://www.g2.com/products/jobber/reviews"
+  - name: ServiceTitan
+    g2_url: "https://www.g2.com/products/servicetitan/reviews"
+
+disqualifiers:
+  - "homeowner DIY repair question"
+  - "job seeker asking how to become a tech"
+
+kill_criteria:
+  - description: "Zero interview-worthy signals for 14 days"
+    threshold: 0
+    window_days: 14
+
+score_max_signals: 30
+
+sources:
+  reddit:
+    subreddits:
+      - HVAC
+      - Plumbing
+      - smallbusiness
+    keywords:
+      - dispatch
+      - scheduling
+      - no-show
+      - field service
+      - ServiceTitan
+    days_back: 14
+    fallback_listing: true
+  hn:
+    query: "field service dispatch scheduling HVAC"
+    days_back: 30
+    tags: story,comment
