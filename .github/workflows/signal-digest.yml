@@ -2,8 +2,18 @@ name: Signal Digest
 
 on:
   schedule:
-    - cron: "0 12 * * *"  # 12:00 UTC daily
+    # Every 4 hours UTC — 6 runs/day; thesis rotates via schedule_thesis.py
+    - cron: "0 */4 * * *"
   workflow_dispatch:
+    inputs:
+      thesis:
+        description: Optional thesis config path (under signal-engine/)
+        required: false
+        default: ""
+
+concurrency:
+  group: signal-pipeline
+  cancel-in-progress: false
 
 jobs:
   digest:
@@ -23,6 +33,15 @@ jobs:
       - name: Sync dependencies
         run: uv sync --group test
 
+      - name: Select thesis
+        id: thesis
+        run: |
+          if [ -n "${{ github.event.inputs.thesis }}" ]; then
+            echo "path=${{ github.event.inputs.thesis }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "path=$(uv run python scripts/schedule_thesis.py)" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Run pipeline
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -31,12 +50,14 @@ jobs:
           AGENTMAIL_API_KEY: ${{ secrets.AGENTMAIL_API_KEY }}
           AGENTMAIL_DIGEST_INBOX_ID: ${{ secrets.AGENTMAIL_DIGEST_INBOX_ID }}
           DIGEST_EMAIL_TO: ${{ secrets.DIGEST_EMAIL_TO }}
-        run: uv run python -m signal_engine.pipeline
+          LLM_SCORE_CONCURRENCY: ${{ secrets.LLM_SCORE_CONCURRENCY }}
+          LLM_SCORE_MAX_SIGNALS: ${{ secrets.LLM_SCORE_MAX_SIGNALS }}
+        run: uv run python -m signal_engine.pipeline --thesis "${{ steps.thesis.outputs.path }}"
 
-      - name: Commit digest
+      - name: Commit digest archive
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add ../docs/SIGNAL_DIGEST.md
-          git diff --staged --quiet || git commit -m "chore: update daily signal digest"
+          git add ../docs/SIGNAL_DIGEST.md ../docs/HAIR_ON_FIRE_ANALYSIS.md ../docs/digests/
+          git diff --staged --quiet || git commit -m "chore: signal digest $(date -u +%Y-%m-%dT%H00Z)"
           git push

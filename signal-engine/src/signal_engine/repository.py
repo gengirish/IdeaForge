@@ -183,3 +183,39 @@ async def count_interview_worthy_in_window(
             since,
         )
     return int(row["cnt"])
+
+
+async def record_pipeline_run(
+    pool: asyncpg.Pool,
+    *,
+    thesis_name: str,
+    thesis_vertical: str,
+    fetched_count: int,
+    deduped_count: int,
+    scored_count: int,
+    interview_worthy_count: int,
+    prefilter_skipped: int,
+    error_count: int,
+    digest_path: str,
+    archive_path: str,
+) -> None:
+    async with pool.acquire() as conn:
+        await conn.execute(
+            """
+            INSERT INTO pipeline_runs (
+                thesis_name, thesis_vertical, fetched_count, deduped_count,
+                scored_count, interview_worthy_count, prefilter_skipped,
+                error_count, digest_path, archive_path
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+            """,
+            thesis_name,
+            thesis_vertical,
+            fetched_count,
+            deduped_count,
+            scored_count,
+            interview_worthy_count,
+            prefilter_skipped,
+            error_count,
+            digest_path,
+            archive_path,
+        )

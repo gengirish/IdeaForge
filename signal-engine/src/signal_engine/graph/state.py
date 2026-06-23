@@ -11,6 +11,8 @@ class PipelineState(TypedDict, total=False):
     skip_scoring: bool
     thesis: dict
     raw_signals: list[dict]
+    fetched_count: int
+    deduped_count: int
     scored_signals: list[dict]
     delta_summary: dict
     contradiction_alert: dict
@@ -19,6 +21,7 @@ class PipelineState(TypedDict, total=False):
     digest_content: str
     email_sent: bool
     email_skip_reason: str
+    archive_path: str
     step: str
     errors: list[str]
     prefilter_total: int

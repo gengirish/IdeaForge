@@ -29,6 +29,12 @@ class Settings(BaseSettings):
     llm_score_max_signals: int = 50
 
     digest_output_path: str = "../docs/SIGNAL_DIGEST.md"
+    digest_archive_dir: str = "../docs/digests"
+    hair_on_fire_output_path: str = "../docs/HAIR_ON_FIRE_ANALYSIS.md"
+    hair_on_fire_window_days: int = 30
+
+    # Only send digest email when UTC hour matches (pipeline may run more often)
+    digest_email_hour_utc: int = 12
 
     # LangSmith observability (langchain-architecture)
     langchain_tracing_v2: bool = False

@@ -42,6 +42,12 @@ def test_interview_worthy_fails_on_low_urgency(sample_scorecard: Scorecard) -> N
     assert sample_scorecard.interview_worthy is False
 
 
+def test_hair_on_fire_matches_validation_rubric(sample_scorecard: Scorecard) -> None:
+    assert sample_scorecard.hair_on_fire is True
+    sample_scorecard.urgency = 3
+    assert sample_scorecard.hair_on_fire is False
+
+
 def test_raw_signal_defaults() -> None:
     signal = RawSignal(
         source=SourceType.REDDIT,

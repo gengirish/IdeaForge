@@ -86,6 +86,16 @@ class Scorecard(BaseModel):
 
     @computed_field  # type: ignore[prop-decorator]
     @property
+    def hair_on_fire(self) -> bool:
+        """18startup trait: buyer actively seeking relief (see docs/CUSTOMER_DISCOVERY_VALIDATION.md)."""
+        if self.pain_real != YesNo.YES:
+            return False
+        if self.pain_frequency != PainFrequency.WEEKLY:
+            return False
+        return self.urgency >= 4
+
+    @computed_field  # type: ignore[prop-decorator]
+    @property
     def interview_worthy(self) -> bool:
         if self.disqualifier_hit:
             return False

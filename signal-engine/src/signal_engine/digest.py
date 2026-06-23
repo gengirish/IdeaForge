@@ -158,3 +158,10 @@ def _format_signal(s: ScoredSignal, *, highlight: bool) -> list[str]:
 def write_digest(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
+
+
+def archive_digest_path(vertical: str, base_dir: Path, at: datetime | None = None) -> Path:
+    """Timestamped path for moat archive: {base}/{vertical}/YYYY-MM-DD-HH00UTC.md"""
+    now = at or datetime.now(UTC)
+    stamp = now.strftime("%Y-%m-%d-%H00UTC")
+    return base_dir / vertical / f"{stamp}.md"

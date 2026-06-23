@@ -42,6 +42,24 @@ CREATE TABLE IF NOT EXISTS scorecards (
 
 CREATE INDEX IF NOT EXISTS idx_scorecards_interview_worthy
     ON scorecards (interview_worthy, scored_at DESC);
+
+CREATE TABLE IF NOT EXISTS pipeline_runs (
+    id SERIAL PRIMARY KEY,
+    thesis_name TEXT NOT NULL,
+    thesis_vertical TEXT NOT NULL,
+    completed_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    fetched_count INTEGER NOT NULL DEFAULT 0,
+    deduped_count INTEGER NOT NULL DEFAULT 0,
+    scored_count INTEGER NOT NULL DEFAULT 0,
+    interview_worthy_count INTEGER NOT NULL DEFAULT 0,
+    prefilter_skipped INTEGER NOT NULL DEFAULT 0,
+    error_count INTEGER NOT NULL DEFAULT 0,
+    digest_path TEXT DEFAULT '',
+    archive_path TEXT DEFAULT ''
+);
+
+CREATE INDEX IF NOT EXISTS idx_pipeline_runs_vertical_completed
+    ON pipeline_runs (thesis_vertical, completed_at DESC);
 """
 
 

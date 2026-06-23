@@ -54,7 +54,15 @@ uv run python -m signal_engine.pipeline             # full pipeline
 uv run python -m signal_engine.pipeline --thesis config/thesis_recruiting_ta.yaml
 ```
 
-Output: `../docs/SIGNAL_DIGEST.md`
+Output: `../docs/SIGNAL_DIGEST.md` + `../docs/digests/{vertical}/`
+
+## Scheduled runs (moat)
+
+GitHub Actions runs the pipeline **every 4 hours** with thesis rotation. See [docs/MOAT.md](../docs/MOAT.md).
+
+```bash
+uv run python scripts/schedule_thesis.py   # which thesis runs this slot?
+```
 
 ## Tuning sources
 

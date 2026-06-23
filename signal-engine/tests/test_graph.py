@@ -18,6 +18,7 @@ def test_pipeline_graph_has_expected_nodes() -> None:
         "analyze_retention",
         "render_digest",
         "write_digest",
+        "write_hair_on_fire",
         "send_digest_email",
     }
     assert expected.issubset(node_names)
