@@ -11,6 +11,12 @@ export function AppHeader() {
           ThesisRadar
         </Link>
         <nav className="flex items-center gap-4">
+          <Link
+            href="/discovery"
+            className="text-sm text-slate-400 transition hover:text-slate-100"
+          >
+            Discovery
+          </Link>
           <SignedIn>
             <Link
               href="/dashboard"

@@ -37,8 +37,14 @@ export default function HomePage() {
         </p>
         <div className="flex flex-wrap gap-3">
           <Link
-            href="/sign-up"
+            href="/discovery"
             className="rounded-lg bg-brand-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-brand-700"
+          >
+            Customer discovery
+          </Link>
+          <Link
+            href="/sign-up"
+            className="rounded-lg border border-slate-700 px-4 py-2 text-sm text-slate-200 transition hover:border-slate-500"
           >
             Get started
           </Link>
