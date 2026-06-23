@@ -136,7 +136,9 @@ uv run python -m signal_engine.pipeline           # full run
 
 ## Phase 1 — MVP product (10 beta users)
 
-**Goal:** Founders with an active thesis pay $49/mo to replace manual pain scanning.
+**Goal:** Founders with an active thesis pay €49/mo to replace manual pain scanning.
+
+> **EU launch:** Shared Romanian SRL + compliance program with ComplianceForge. See [docs/EU_LAUNCH_PLAN.md](./docs/EU_LAUNCH_PLAN.md). ThesisRadar launches **after** ComplianceForge; EUR billing, Frankfurt data residency.
 
 **Timeline:** 4–6 weeks after Phase 0 exit
 
@@ -148,7 +150,7 @@ uv run python -m signal_engine.pipeline           # full run
 | Daily email digest (AgentMail) | P0 |
 | Signal detail page with source receipts | P0 |
 | Scorecard view (5 dimensions, not one number) | P0 |
-| Auth + Stripe ($49/mo founding member, 20 seats cap) | P0 |
+| Auth + Stripe (€49/mo founding member, 20 seats cap) | P0 |
 | Waitlist landing page | P0 |
 | Web dashboard (Next.js) | P0 |
 
@@ -188,7 +190,7 @@ Or split to `gengirish/thesis-radar` when billing/auth need clean separation.
 
 ### Success metric
 
-- 10 beta users from network, **5 paying** at $49/mo
+- 10 beta users from network, **5 paying** at €49/mo
 - 60% open digest 4+ days/week
 - 3+ users schedule discovery calls from signals
 
@@ -242,7 +244,7 @@ Or split to `gengirish/thesis-radar` when billing/auth need clean separation.
 |---------|---------|
 | **Vertical packs** | Recruiting, devtools, ecommerce ops — pre-tuned sources + keywords |
 | **Public signal examples** | SEO pages: “Hair on fire problems in [vertical] — [month]” |
-| **Scout tier** | $199/mo — 10 theses, team seats |
+| **Scout tier** | €199/mo — 10 theses, team seats |
 | **Lightweight API** | For VC associates |
 | **Outcome tagging** | User marks pursued / killed / pivoted → feeds moat |
 
@@ -251,9 +253,9 @@ Or split to `gengirish/thesis-radar` when billing/auth need clean separation.
 | Tier | Price | Includes |
 |------|-------|----------|
 | Free | $0 | 1 thesis, weekly digest, 10 signals/mo |
-| Founder | $79/mo | 3 theses, daily digest, full scorecard, outreach drafts |
-| Scout | $199/mo | 10 theses, API, team seats |
-| Vertical pack | +$49/mo | Pre-tuned sources per industry |
+| **Founder** | €79/mo | 3 theses, daily digest, full scorecard, outreach drafts |
+| **Scout** | €199/mo | 10 theses, API, team seats |
+| **Vertical pack** | +€49/mo | Pre-tuned sources per industry |
 
 ### GTM
 

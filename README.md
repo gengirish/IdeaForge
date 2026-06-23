@@ -6,6 +6,8 @@ Thesis-driven, evidence-grade daily signal engine for founders with an active be
 
 See [IDEA_DISCOVERY_ENGINE_ROADMAP.md](./IDEA_DISCOVERY_ENGINE_ROADMAP.md) for the full product roadmap.
 
+**EU launch (Romanian SRL, shared with ComplianceForge):** [docs/EU_LAUNCH_PLAN.md](./docs/EU_LAUNCH_PLAN.md)
+
 ## Monorepo layout
 
 ```

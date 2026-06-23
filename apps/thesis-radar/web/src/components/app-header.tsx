@@ -10,7 +10,25 @@ export function AppHeader() {
         <Link href="/" className="font-semibold tracking-tight text-slate-100 hover:text-white">
           ThesisRadar
         </Link>
-        <nav className="flex items-center gap-4">
+        <nav className="flex flex-wrap items-center justify-end gap-x-4 gap-y-2">
+          <Link
+            href="/how-it-works"
+            className="text-sm text-slate-400 transition hover:text-slate-100"
+          >
+            How it works
+          </Link>
+          <Link
+            href="/examples"
+            className="text-sm text-slate-400 transition hover:text-slate-100"
+          >
+            Examples
+          </Link>
+          <Link
+            href="/about"
+            className="text-sm text-slate-400 transition hover:text-slate-100"
+          >
+            About
+          </Link>
           <Link
             href="/discovery"
             className="text-sm text-slate-400 transition hover:text-slate-100"

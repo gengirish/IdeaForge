@@ -2,6 +2,14 @@
 
 This repo builds **ThesisRadar** (Signal Engine). Before writing code, **read and follow the skills listed for your phase** (see `docs/superpowers/plans/2026-06-07-ideaforge-complete-product-plan.md`).
 
+## EU launch (Romanian SRL — shared with ComplianceForge)
+
+Portfolio launch is **paused** but documented. When resuming:
+
+1. **Resume here:** [`docs/EU_LAUNCH_STATUS.md`](./docs/EU_LAUNCH_STATUS.md)
+2. **Full plan:** [`docs/EU_LAUNCH_PLAN.md`](./docs/EU_LAUNCH_PLAN.md)
+3. **Order:** ComplianceForge first (`D:\codebase\complianceforge`) → ThesisRadar second
+
 ## Non-negotiable workflow
 
 1. **Identify phase** from `IDEA_DISCOVERY_ENGINE_ROADMAP.md`

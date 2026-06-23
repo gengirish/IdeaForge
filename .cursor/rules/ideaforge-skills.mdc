@@ -25,6 +25,16 @@ Before implementing any feature:
 | Email (AgentMail) | `docs/AGENTMAIL.md` — NOT outdated `open-source-skills/.../agentmail` |
 | Done claims | `verification-before-completion` |
 
+## EU launch (paused — resume when ready)
+
+Romanian SRL portfolio: **ComplianceForge first**, ThesisRadar second.
+
+- **Resume:** `docs/EU_LAUNCH_STATUS.md`
+- **Full plan:** `docs/EU_LAUNCH_PLAN.md`
+- **ComplianceForge repo:** `D:\codebase\complianceforge`
+
+Before EU billing or legal pages: read plan Phase 1A–1C. Use EUR not USD for EU pricing.
+
 ## Verification before "done"
 
 - `cd signal-engine && uv run pytest -q`

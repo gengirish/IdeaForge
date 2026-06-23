@@ -2,7 +2,7 @@
 #   fly deploy . --config apps/thesis-radar/api/fly.toml --app thesis-radar-api
 
 app = 'thesis-radar-api'
-primary_region = 'iad'
+primary_region = 'fra'
 
 [build]
   dockerfile = 'Dockerfile'
