@@ -8,6 +8,8 @@ class Settings(BaseSettings):
         env_file=(".env", "../.env", "../../.env"),
         env_file_encoding="utf-8",
         extra="ignore",
+        # GitHub Actions secrets resolve to "" when unset — use field defaults
+        env_ignore_empty=True,
     )
 
     database_url: str = "postgresql://ideaforge:ideaforge@localhost:5432/ideaforge"
