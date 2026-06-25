@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { FounderCard } from "@/components/founder-card";
+
 export const metadata: Metadata = {
   title: "About IntelliForge & ThesisRadar",
   description:
-    "IntelliForge builds B2B software. ThesisRadar is a thesis-driven daily signal engine for founder customer discovery — not radar hardware.",
+    "IntelliForge builds B2B software. ThesisRadar is customer discovery SaaS for founders — built by Girish Hiremath, AI practitioner with 14+ years shipping enterprise systems.",
 };
 
 const whyBuilt = [
@@ -19,21 +21,6 @@ const whyBuilt = [
   {
     title: "Scores without receipts fail",
     body: "One-time validation tools hand you a 0–100 score with no source links. Customer discovery needs evidence you can cite in a call — not a black-box number.",
-  },
-];
-
-const teamFields = [
-  {
-    label: "Domain expertise",
-    value: "Customer discovery, LangGraph pipelines, LLM scoring with source receipts",
-  },
-  {
-    label: "Dogfood proof",
-    value: "Daily digest in production since Phase 0 — recruiting/TA vertical in signal-engine",
-  },
-  {
-    label: "Shipping track record",
-    value: "Technical founders with experience shipping Vettd (AI interviews) and production signal pipelines",
   },
 ];
 
@@ -140,21 +127,12 @@ export default function AboutPage() {
       </section>
 
       <section className="mb-16 rounded-xl border border-slate-800 bg-slate-900/30 p-6 sm:p-8">
-        <h2 className="mb-2 text-2xl font-semibold">Built by IntelliForge</h2>
-        <p className="mb-6 max-w-2xl text-slate-400">
-          Founder profiles coming soon. Until then, here is what we can stand behind today.
+        <h2 className="mb-2 text-2xl font-semibold">Founder</h2>
+        <p className="mb-8 max-w-2xl text-slate-400">
+          ThesisRadar is built by engineers who ship production AI systems — not slide-deck
+          validators.
         </p>
-        <dl className="space-y-4">
-          {teamFields.map((field) => (
-            <div
-              key={field.label}
-              className="rounded-lg border border-slate-800 bg-slate-900/30 px-4 py-3"
-            >
-              <dt className="text-xs uppercase tracking-wide text-slate-500">{field.label}</dt>
-              <dd className="mt-1 text-sm text-slate-200">{field.value}</dd>
-            </div>
-          ))}
-        </dl>
+        <FounderCard />
       </section>
 
       <section className="mb-16">

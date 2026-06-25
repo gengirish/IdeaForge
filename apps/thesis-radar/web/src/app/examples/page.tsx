@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { DigestSampleCard, type DigestSampleSignal } from "@/components/digest-sample-card";
+import { DigestSampleCard } from "@/components/digest-sample-card";
+import { PipelineStatsBanner } from "@/components/pipeline-stats-banner";
+import {
+  formatRunDate,
+  getInterviewWorthySamples,
+  getPipelineCorpusStats,
+} from "@/lib/pipeline-stats";
 
 export const metadata: Metadata = {
   title: "Digest examples — ThesisRadar",
@@ -9,46 +15,7 @@ export const metadata: Metadata = {
     "See what a daily ThesisRadar digest looks like — interview-worthy signals with scorecards, source receipts, and thesis fit.",
 };
 
-const pipelineStats = {
-  signalsScored: 30,
-  interviewWorthy: 5,
-  prefilterFrom: 567,
-  prefilterTo: 30,
-  thesis: "Field Service — HVAC",
-};
-
-const sampleSignals: DigestSampleSignal[] = [
-  {
-    title: "Request: Field Service + CRM + Product Sales + Project Management all-in-one?",
-    url: "https://reddit.com/r/smallbusiness/comments/lmy390/request_field_service_crm_product_sales_project/",
-    source: "reddit",
-    urgency: 4,
-    scorecard:
-      "pain=Y, freq=monthly, paying=Y, persona=buyer, would_pay=maybe, thesis=supports",
-    rationale:
-      "The author describes using multiple software tools for sales, CRM, project management, and field service scheduling, indicating real pain from inefficiency and a willingness to streamline.",
-  },
-  {
-    title: "In need of a scheduling/dispatch software that works well!",
-    url: "https://reddit.com/r/HVAC/comments/1hhy7hz/in_need_of_a_schedulingdispatch_software_that/",
-    source: "reddit",
-    urgency: 4,
-    scorecard:
-      "pain=Y, freq=monthly, paying=Y, persona=champion, would_pay=maybe, thesis=supports",
-    rationale:
-      "The author describes a specific pain point with their current scheduling system (House Call Pro) and manual Excel spreadsheet, and is seeking a more efficient solution.",
-  },
-  {
-    title: "Service/Repair Plumbers - how do you organize day-to-day operations?",
-    url: "https://reddit.com/r/Plumbing/comments/frkd6y/servicerepair_plumbers_how_do_you_organize/",
-    source: "reddit",
-    urgency: 4,
-    scorecard:
-      "pain=Y, freq=weekly, paying=N, persona=champion, would_pay=maybe, thesis=supports",
-    rationale:
-      "The author describes a specific instance of their current inefficient scheduling process causing stress and inefficiency, and is actively researching solutions.",
-  },
-];
+export const revalidate = 300;
 
 const gateCriteria = [
   { label: "Pain real?", detail: "Specific past instance, not vague annoyance" },
@@ -58,7 +25,24 @@ const gateCriteria = [
   { label: "Thesis supports", detail: "Signal aligns with your ICP + JTBD bet" },
 ];
 
-export default function ExamplesPage() {
+export default async function ExamplesPage() {
+  const [{ stats, source: statsSource }, { signals, source: signalsSource }] =
+    await Promise.all([getPipelineCorpusStats(), getInterviewWorthySamples(3)]);
+
+  const run = stats.latestRun;
+  const displayRun = run ?? {
+    thesisName: "sample",
+    thesisVertical: "Field Service — HVAC",
+    signalsScored: 30,
+    interviewWorthy: 5,
+    prefilterFrom: 567,
+    prefilterTo: 30,
+    completedAt: "2026-06-09T12:25:00.000Z",
+  };
+
+  const dataSource =
+    statsSource === "live" || signalsSource === "live" ? "live" : "fallback";
+
   return (
     <main className="mx-auto max-w-4xl px-6 py-16">
       <header className="mb-12">
@@ -69,45 +53,25 @@ export default function ExamplesPage() {
           See what a daily digest looks like
         </h1>
         <p className="max-w-2xl text-lg text-slate-400">
-          Real signals from a production pipeline run — scored against a Field Service HVAC thesis,
-          filtered from hundreds of posts to the few worth a discovery call.
+          {dataSource === "live"
+            ? "Live interview-worthy signals from the production corpus — scored against active theses and filtered to discovery-call quality."
+            : "Sample signals from a production pipeline run — scored against a Field Service HVAC thesis, filtered from hundreds of posts to the few worth a discovery call."}
         </p>
       </header>
 
-      <section
-        className="mb-12 rounded-xl border border-slate-800 bg-slate-900/30 p-5 sm:p-6"
-        aria-label="Pipeline stats"
-      >
-        <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <div>
-            <dt className="text-xs uppercase tracking-wide text-slate-500">Signals scored</dt>
-            <dd className="mt-1 text-2xl font-semibold text-slate-100">
-              {pipelineStats.signalsScored}
-            </dd>
-          </div>
-          <div>
-            <dt className="text-xs uppercase tracking-wide text-slate-500">Interview-worthy</dt>
-            <dd className="mt-1 text-2xl font-semibold text-brand-400">
-              {pipelineStats.interviewWorthy}
-            </dd>
-          </div>
-          <div>
-            <dt className="text-xs uppercase tracking-wide text-slate-500">Prefilter</dt>
-            <dd className="mt-1 text-2xl font-semibold text-slate-100">
-              {pipelineStats.prefilterFrom}→{pipelineStats.prefilterTo}
-            </dd>
-          </div>
-          <div>
-            <dt className="text-xs uppercase tracking-wide text-slate-500">Thesis</dt>
-            <dd className="mt-1 text-lg font-semibold text-slate-100">{pipelineStats.thesis}</dd>
-          </div>
-        </dl>
-      </section>
+      <div className="mb-12">
+        <PipelineStatsBanner
+          run={displayRun}
+          source={statsSource}
+          runsLast24h={stats.runsLast24h}
+          totalSignals={stats.totalSignals}
+        />
+      </div>
 
       <section className="mb-12">
         <h2 className="mb-6 text-2xl font-semibold">Interview-worthy signals</h2>
         <div className="grid gap-4">
-          {sampleSignals.map((signal) => (
+          {signals.map((signal) => (
             <DigestSampleCard key={signal.url} signal={signal} />
           ))}
         </div>
@@ -137,8 +101,9 @@ export default function ExamplesPage() {
       </section>
 
       <p className="mb-12 text-sm text-slate-500">
-        Sample from production pipeline run, 2026-06-09. Full digests delivered daily to founding
-        members.
+        {dataSource === "live"
+          ? `Pulled from production Postgres · last pipeline run ${formatRunDate(displayRun.completedAt)}. Full digests delivered daily to founding members.`
+          : `Sample from production pipeline run, ${formatRunDate(displayRun.completedAt)}. Full digests delivered daily to founding members.`}
       </p>
 
       <section className="rounded-xl border border-brand-900/50 bg-brand-900/10 p-6 sm:p-8">
