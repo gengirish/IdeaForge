@@ -1,4 +1,4 @@
-"""Tests for 4-hour thesis rotation."""
+"""Tests for 2-hour thesis rotation."""
 
 from datetime import UTC, datetime
 from pathlib import Path
@@ -12,10 +12,10 @@ def test_thesis_rotation_by_slot(tmp_path: Path) -> None:
         p.write_text("name: x\nvertical: v\nicp: {}\nproblem_hypothesis: p\n", encoding="utf-8")
 
     at_0 = datetime(2026, 6, 9, 1, 0, tzinfo=UTC)  # slot 0
-    at_4 = datetime(2026, 6, 9, 5, 0, tzinfo=UTC)  # slot 1
+    at_2 = datetime(2026, 6, 9, 3, 0, tzinfo=UTC)  # slot 1
 
     assert thesis_for_slot(theses=theses, at=at_0) == theses[0]
-    assert thesis_for_slot(theses=theses, at=at_4) == theses[1]
+    assert thesis_for_slot(theses=theses, at=at_2) == theses[1]
 
 
 def test_archive_digest_path() -> None:

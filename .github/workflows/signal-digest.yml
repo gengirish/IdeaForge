@@ -2,8 +2,8 @@ name: Signal Digest
 
 on:
   schedule:
-    # Every 4 hours UTC — 6 runs/day; thesis rotates via schedule_thesis.py
-    - cron: "0 */4 * * *"
+    # Every 2 hours UTC — 12 runs/day; thesis rotates via schedule_thesis.py
+    - cron: "0 */2 * * *"
   workflow_dispatch:
     inputs:
       thesis:

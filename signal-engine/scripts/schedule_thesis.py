@@ -1,4 +1,4 @@
-"""Pick thesis YAML for the current 4-hour UTC slot (round-robin)."""
+"""Pick thesis YAML for the current 2-hour UTC slot (round-robin)."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 CONFIG_DIR = Path(__file__).resolve().parents[1] / "config"
-SLOT_HOURS = 4
+SLOT_HOURS = 2
 
 
 def thesis_for_slot(

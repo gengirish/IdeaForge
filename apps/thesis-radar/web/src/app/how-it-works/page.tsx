@@ -87,7 +87,7 @@ const scorecardRubric = [
 const moatLayers = [
   {
     title: "Time-series signal corpus",
-    body: "Raw and scored signals upserted into Postgres every 4 hours — six runs per day. The corpus compounds even when posts are re-seen.",
+    body: "Raw and scored signals upserted into Postgres every 2 hours — twelve runs per day. The corpus compounds even when posts are re-seen.",
   },
   {
     title: "Thesis YAML rotation",

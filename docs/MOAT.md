@@ -2,7 +2,7 @@
 
 ThesisRadar’s defensibility is not the LLM scorer (commodity). It is the **proprietary, time-series evidence corpus** tied to explicit theses.
 
-## What accumulates every 4 hours
+## What accumulates every 2 hours
 
 | Layer | Where | Why it compounds |
 |-------|--------|------------------|
@@ -13,7 +13,7 @@ ThesisRadar’s defensibility is not the LLM scorer (commodity). It is the **pro
 
 ## Schedule (GitHub Actions)
 
-- **Cron:** `0 */4 * * *` — 6 runs/day at 00, 04, 08, 12, 16, 20 UTC
+- **Cron:** `0 */2 * * *` — 12 runs/day at even UTC hours
 - **Thesis rotation:** `scripts/schedule_thesis.py` round-robins `config/thesis_*.yaml` by slot
 - **Cost control:** prefilter cap (`score_max_signals` per thesis) + parallel scoring
 
@@ -35,7 +35,7 @@ uv run python -m signal_engine.pipeline --thesis "$THESIS"
 
 ## Moat milestones
 
-1. **Phase 0 (now):** 4h schedule + multi-thesis rotation + DB + archives
+1. **Phase 0 (now):** 2h schedule + multi-thesis rotation + DB + archives
 2. **Phase 1:** Dashboard reads Postgres — users see *your* historical delta, not a one-shot report
 3. **Phase 2:** Export API / signed bundles for diligence; benchmark “interview-worthy precision” on labeled set
 4. **Phase 3:** Fine-tune ranker on your scorecards; competitor can’t replicate without your labels + time depth

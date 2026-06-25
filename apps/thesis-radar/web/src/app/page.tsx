@@ -5,7 +5,7 @@ import { PipelineLiveStats } from "@/components/pipeline-live-stats";
 export const revalidate = 300;
 
 const pipelineStats = [
-  { label: "Pipeline cadence", value: "6 runs/day", detail: "Every 4h cron in production" },
+  { label: "Pipeline cadence", value: "12 runs/day", detail: "Every 2h cron in production" },
   { label: "Signal sources", value: "Reddit, HN, G2", detail: "Scored against your thesis" },
   { label: "Scoring stack", value: "LangGraph + NIM", detail: "NVIDIA NIM → Gemini fallback" },
   { label: "Corpus", value: "Postgres (Neon)", detail: "Time-series evidence store" },

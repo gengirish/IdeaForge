@@ -28,7 +28,7 @@ export async function PipelineLiveStats() {
         {
           label: "Runs (24h)",
           value: stats.runsLast24h > 0 ? String(stats.runsLast24h) : "—",
-          detail: "Scheduled every 4h",
+          detail: "Scheduled every 2h",
         },
         {
           label: "Latest thesis",

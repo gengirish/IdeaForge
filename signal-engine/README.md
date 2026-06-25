@@ -58,7 +58,7 @@ Output: `../docs/SIGNAL_DIGEST.md` + `../docs/digests/{vertical}/`
 
 ## Scheduled runs (moat)
 
-GitHub Actions runs the pipeline **every 4 hours** with thesis rotation. See [docs/MOAT.md](../docs/MOAT.md).
+GitHub Actions runs the pipeline **every 2 hours** with thesis rotation. See [docs/MOAT.md](../docs/MOAT.md).
 
 ```bash
 uv run python scripts/schedule_thesis.py   # which thesis runs this slot?
